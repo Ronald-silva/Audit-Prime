@@ -29,6 +29,7 @@ Especialista em desenvolvimento web moderno e soluções digitais para empresas.
 ## 🚀 Como Executar o Projeto
 
 ### Pré-requisitos
+
 - Node.js (versão 16 ou superior)
 - npm ou yarn
 
@@ -87,23 +88,27 @@ src/
 ## 🌟 Funcionalidades Principais
 
 ### 📱 Responsividade Perfeita
+
 - Design mobile-first
 - Breakpoints otimizados para todos os dispositivos
 - Menu hamburger funcional
 - Imagens responsivas
 
 ### 🧮 Calculadora Simples Nacional
+
 - Cálculos baseados na legislação 2024
 - Anexo I (Comércio) implementado
 - Validações e tratamento de erros
 - Interface intuitiva
 
 ### 📞 Formulário de Contato
+
 - Validação em tempo real
 - Design profissional
 - Integração com toast notifications
 
 ### 🎯 SEO e Performance
+
 - Meta tags otimizadas
 - Carregamento otimizado de imagens
 - CSS minificado
@@ -123,4 +128,4 @@ Especialista em React, TypeScript e desenvolvimento web moderno.
 
 ---
 
-*Desenvolvido com ❤️ por Ronald Dev*
+_Desenvolvido com ❤️ por Ronald Dev_
