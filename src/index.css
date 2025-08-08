@@ -1,0 +1,289 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 210 11% 15%;
+    --card: 0 0% 100%;
+    --card-foreground: 210 11% 15%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 210 11% 15%;
+    --primary: 222 72% 32%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 17% 98%;
+    --secondary-foreground: 210 11% 15%;
+    --muted: 210 17% 98%;
+    --muted-foreground: 210 6% 46%;
+    --accent: 222 72% 45%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 17% 92%;
+    --input: 210 17% 92%;
+    --ring: 222 72% 32%;
+    --radius: 0.75rem;
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 210 11% 15%;
+    --foreground: 0 0% 100%;
+    --card: 210 11% 15%;
+    --card-foreground: 0 0% 100%;
+    --popover: 210 11% 15%;
+    --popover-foreground: 0 0% 100%;
+    --primary: 222 72% 45%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Inter', 'Lato', sans-serif;
+    overflow-x: hidden;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Inter', 'Lato', sans-serif;
+    font-weight: 600;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+  }
+  .scroll-smooth {
+    scroll-behavior: smooth;
+  }
+  html {
+    overflow-x: hidden;
+  }
+  .responsive-text {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    hyphens: auto;
+    max-width: 100%;
+  }
+}
+
+@layer components {
+  .btn-audit-primary {
+    @apply bg-blue-900 text-white;
+    @apply shadow-lg;
+    @apply font-semibold px-6 py-3 rounded-lg min-h-[44px];
+    @apply flex items-center justify-center;
+  }
+  
+  .btn-cta-primary {
+    @apply bg-blue-900 text-white;
+    @apply shadow-lg;
+    @apply font-semibold px-6 py-3 rounded-lg min-h-[44px];
+    @apply flex items-center justify-center w-full sm:w-auto;
+  }
+  
+  .btn-audit-outline {
+    @apply border-2 border-blue-900 text-blue-900 bg-transparent;
+    @apply font-semibold px-6 py-3 rounded-lg min-h-[44px];
+    @apply flex items-center justify-center;
+  }
+  
+  .section-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .section-padding {
+    @apply py-12 sm:py-16 lg:py-20;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:shadow-lg hover:-translate-y-1;
+  }
+  
+  .text-gradient {
+    @apply bg-gradient-to-r from-primary to-primary/80 bg-clip-text text-transparent;
+  }
+  
+  .nav-link {
+    @apply relative;
+  }
+  
+  .mobile-nav-item {
+    @apply text-xl font-medium text-foreground;
+    @apply py-4 border-b border-gray-100;
+    @apply flex items-center justify-between;
+  }
+}
+
+/* Perfect Responsive Design */
+
+/* Extra Small Devices (320px+) */
+@media (min-width: 320px) {
+  .xs\:text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
+  .xs\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
+  .xs\:text-base { font-size: 1rem; line-height: 1.5rem; }
+  .xs\:h-8 { height: 2rem; }
+  .xs\:w-8 { width: 2rem; }
+  .xs\:h-10 { height: 2.5rem; }
+  .xs\:max-w-\[150px\] { max-width: 150px; }
+}
+
+/* Mobile First (up to 640px) */
+@media (max-width: 640px) {
+  .section-container { 
+    @apply px-3 sm:px-4; 
+    max-width: 100%;
+  }
+  
+  .section-padding { 
+    @apply py-8 sm:py-10; 
+  }
+  
+  /* Hero Mobile Optimization */
+  #inicio {
+    @apply min-h-screen;
+    padding-top: 70px !important;
+    padding-bottom: 30px !important;
+  }
+  
+  #inicio h1 {
+    font-size: 2rem !important;
+    line-height: 2.25rem !important;
+  }
+  
+  #inicio .text-base {
+    font-size: 0.875rem !important;
+    line-height: 1.25rem !important;
+  }
+  
+  /* Mobile Buttons */
+  .btn-audit-primary { 
+    @apply w-full text-sm py-3 px-4 min-h-[44px]; 
+  }
+  
+  /* Mobile Navigation */
+  .mobile-nav-item { 
+    @apply text-base py-3 min-h-[48px]; 
+  }
+  
+  /* Mobile Typography */
+  h1, h2, h3, h4, h5, h6 { 
+    word-wrap: break-word; 
+    hyphens: auto; 
+    overflow-wrap: break-word;
+  }
+  
+  /* Mobile Cards */
+  .card-hover {
+    @apply hover:shadow-soft hover:translate-y-0;
+  }
+}
+
+/* Very Small Mobile (up to 480px) */
+@media (max-width: 480px) {
+  .section-container { 
+    @apply px-2; 
+  }
+  
+  .section-padding { 
+    @apply py-6; 
+  }
+  
+  /* Extra Small Hero */
+  #inicio { 
+    padding-top: 60px !important; 
+    padding-bottom: 20px !important; 
+  }
+  
+  #inicio h1 { 
+    font-size: 1.75rem !important; 
+    line-height: 2rem !important; 
+  }
+  
+  #inicio .text-base { 
+    font-size: 0.75rem !important; 
+    line-height: 1rem !important; 
+  }
+  
+  /* Extra Small Buttons */
+  .btn-audit-primary { 
+    @apply text-xs py-2.5 px-3 min-h-[40px]; 
+  }
+  
+  .mobile-nav-item { 
+    @apply text-sm py-2.5 min-h-[44px]; 
+  }
+}
+
+/* Tablet Optimization (641px to 1024px) */
+@media (min-width: 641px) and (max-width: 1024px) {
+  .section-container { 
+    @apply px-6; 
+  }
+  
+  #inicio {
+    padding-top: 80px !important;
+  }
+  
+  .btn-audit-primary { 
+    @apply px-6 py-3 text-sm; 
+  }
+}
+
+/* Large Desktop (1025px+) */
+@media (min-width: 1025px) {
+  .section-container { 
+    @apply px-8; 
+  }
+  
+  #inicio {
+    padding-top: 90px !important;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.9); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.animate-fade-in { animation: fadeIn 0.8s ease-out; }
+.animate-slide-up { animation: slideUp 0.8s ease-out 0.2s both; }
+.animate-scale-in { animation: scaleIn 0.8s ease-out 0.4s both; }
