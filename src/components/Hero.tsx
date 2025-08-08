@@ -20,7 +20,7 @@ const Hero = () => {
         backgroundAttachment: "scroll",
       }}
     >
-      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-10 text-center text-white">
+      <div className="w-full max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8 relative z-20 text-center text-white">
         {/* Perfect Responsive Hero Content */}
         <div className="space-y-3 sm:space-y-4 md:space-y-6 lg:space-y-8">
           {/* Company Name - Perfect Scaling */}
@@ -62,19 +62,25 @@ const Hero = () => {
               </button>
             </div>
 
-            {/* Trust Indicators - Perfect Responsive */}
-            <div className="mt-4 sm:mt-6 md:mt-8 text-xs sm:text-sm md:text-base opacity-90 space-y-1 px-1 sm:px-2">
-              <p>✓ Mais de 500 empresas atendidas</p>
-              <p>✓ Consultoria especializada em PMEs</p>
+            {/* Trust Indicators - Well Spaced */}
+            <div className="mt-6 sm:mt-8 md:mt-10 mb-16 sm:mb-20 md:mb-24 lg:mb-28 text-xs sm:text-sm md:text-base opacity-90 space-y-2 px-1 sm:px-2 relative z-30">
+              <p className="flex items-center justify-center gap-2">
+                <span>✓</span>
+                <span>Mais de 500 empresas atendidas</span>
+              </p>
+              <p className="flex items-center justify-center gap-2">
+                <span>✓</span>
+                <span>Consultoria especializada em PMEs</span>
+              </p>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-4 sm:bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden sm:block">
-        <div className="w-5 h-8 sm:w-6 sm:h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-2 sm:h-3 bg-white rounded-full mt-1.5 sm:mt-2 animate-pulse"></div>
+      {/* Scroll Indicator - Much Lower Position */}
+      <div className="absolute bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block z-0">
+        <div className="w-6 h-10 border-2 border-white/80 rounded-full flex justify-center items-start">
+          <div className="w-1.5 h-3 bg-white/80 rounded-full mt-2.5 animate-pulse"></div>
         </div>
       </div>
     </section>

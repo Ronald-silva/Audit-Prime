@@ -38,85 +38,85 @@ const Header = () => {
             : "bg-transparent"
         }`}
       >
-        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
-          <div className="flex items-center justify-between py-3 sm:py-4">
-            {/* Logo */}
-            <div className="flex items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12">
+          <div className="flex items-center justify-between py-4 sm:py-5 md:py-6">
+            {/* Logo - Professional Spacing */}
+            <div className="flex items-center py-2">
               <img
                 src={isScrolled ? logoAP : logoHorizontal}
                 alt="AUDIT PRIME"
                 className={`transition-all duration-300 rounded-lg shadow-sm ${
                   isScrolled
-                    ? "h-8 w-8 sm:h-10 sm:w-10 object-contain"
-                    : "h-10 w-auto max-w-[140px] sm:h-12 sm:max-w-[200px] object-contain"
+                    ? "h-10 w-10 sm:h-12 sm:w-12 object-contain"
+                    : "h-12 w-auto max-w-[160px] sm:h-14 sm:max-w-[220px] object-contain"
                 }`}
               />
             </div>
 
-            {/* Desktop Navigation */}
-            <nav className="hidden lg:flex items-center space-x-4 xl:space-x-8">
+            {/* Desktop Navigation - Professional Spacing */}
+            <nav className="hidden lg:flex items-center space-x-6 xl:space-x-10">
               <button
                 onClick={() => scrollToSection("inicio")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-sm xl:text-base"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Início
               </button>
               <button
                 onClick={() => scrollToSection("servicos")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-sm xl:text-base"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Serviços
               </button>
               <button
                 onClick={() => scrollToSection("ferramentas")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-sm xl:text-base"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Calculadoras
               </button>
               <button
                 onClick={() => scrollToSection("diferenciais")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-sm xl:text-base"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Diferenciais
               </button>
               <button
                 onClick={() => scrollToSection("contato")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-sm xl:text-base"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Contato
               </button>
             </nav>
 
-            {/* Desktop CTA */}
+            {/* Desktop CTA - Professional Spacing */}
             <div className="hidden lg:block">
               <button
                 onClick={() => scrollToSection("contato")}
-                className="bg-blue-900 text-white font-semibold px-4 py-2 xl:px-6 xl:py-3 rounded-lg hover:bg-blue-800 transition-colors text-sm xl:text-base"
+                className="bg-blue-900 text-white font-semibold px-6 py-3 xl:px-8 xl:py-4 rounded-lg hover:bg-blue-800 transition-colors text-base xl:text-lg shadow-md"
               >
                 Consulta Gratuita
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - Professional Touch Target */}
             <button
               onClick={toggleMobileMenu}
-              className="lg:hidden p-2 rounded-md hover:bg-gray-100 transition-colors"
+              className="lg:hidden p-3 rounded-md hover:bg-gray-100 transition-colors min-w-[48px] min-h-[48px] flex items-center justify-center"
               aria-label="Toggle menu"
             >
               {isMobileMenuOpen ? (
-                <X className="h-6 w-6 text-foreground" />
+                <X className="h-7 w-7 text-foreground" />
               ) : (
-                <Menu className="h-6 w-6 text-foreground" />
+                <Menu className="h-7 w-7 text-foreground" />
               )}
             </button>
           </div>
         </div>
       </header>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu - Professional Spacing */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-white pt-16 sm:pt-20">
-          <div className="px-3 sm:px-4 py-4 sm:py-6 space-y-2 sm:space-y-4">
+        <div className="lg:hidden fixed inset-0 z-40 bg-white pt-20 sm:pt-24">
+          <div className="px-4 sm:px-6 py-6 sm:py-8 space-y-3 sm:space-y-4">
             <button
               onClick={() => scrollToSection("inicio")}
               className="block w-full text-left py-3 px-4 text-base sm:text-lg font-medium text-foreground hover:bg-gray-50 rounded-lg transition-colors min-h-[48px]"

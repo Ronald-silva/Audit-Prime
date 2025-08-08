@@ -1,27 +1,35 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Calculator, Download, Mail } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Calculator, Download, Mail } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Tools = () => {
   const [formData, setFormData] = useState({
-    revenue: '',
-    email: ''
+    revenue: "",
+    email: "",
   });
   const [calculation, setCalculation] = useState<number | null>(null);
   const { toast } = useToast();
 
   const handleCalculate = () => {
-    const revenue = parseFloat(formData.revenue.replace(/[^\d,]/g, '').replace(',', '.'));
-    
+    const revenue = parseFloat(
+      formData.revenue.replace(/[^\d,]/g, "").replace(",", ".")
+    );
+
     if (!revenue || revenue <= 0) {
       toast({
         title: "Erro",
         description: "Por favor, insira um valor de faturamento válido.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -29,8 +37,9 @@ const Tools = () => {
     if (revenue > 4800000) {
       toast({
         title: "Atenção",
-        description: "Faturamento acima do limite do Simples Nacional (R$ 4.800.000). Consulte nossos especialistas.",
-        variant: "destructive"
+        description:
+          "Faturamento acima do limite do Simples Nacional (R$ 4.800.000). Consulte nossos especialistas.",
+        variant: "destructive",
       });
       return;
     }
@@ -61,9 +70,9 @@ const Tools = () => {
     }
 
     // Cálculo anual correto
-    const impostoAnual = (revenue * aliquota) - parcelaDeducao;
+    const impostoAnual = revenue * aliquota - parcelaDeducao;
     const impostoMensal = impostoAnual / 12;
-    
+
     setCalculation(impostoMensal);
   };
 
@@ -71,8 +80,9 @@ const Tools = () => {
     if (!formData.email) {
       toast({
         title: "Erro",
-        description: "Por favor, insira seu e-mail para receber o resultado detalhado.",
-        variant: "destructive"
+        description:
+          "Por favor, insira seu e-mail para receber o resultado detalhado.",
+        variant: "destructive",
       });
       return;
     }
@@ -81,7 +91,7 @@ const Tools = () => {
       toast({
         title: "Erro",
         description: "Primeiro calcule o Simples Nacional.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -89,19 +99,20 @@ const Tools = () => {
     // Simular envio do e-mail
     toast({
       title: "Sucesso!",
-      description: "Resultado detalhado enviado para seu e-mail. Nossa equipe entrará em contato em breve!"
+      description:
+        "Resultado detalhado enviado para seu e-mail. Nossa equipe entrará em contato em breve!",
     });
 
     // Reset form
-    setFormData({ revenue: '', email: '' });
+    setFormData({ revenue: "", email: "" });
     setCalculation(null);
   };
 
   const formatCurrency = (value: string) => {
-    const numbers = value.replace(/[^\d]/g, '');
-    const formatted = new Intl.NumberFormat('pt-BR', {
-      style: 'currency',
-      currency: 'BRL'
+    const numbers = value.replace(/[^\d]/g, "");
+    const formatted = new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
     }).format(parseInt(numbers) / 100 || 0);
     return formatted;
   };
@@ -151,7 +162,7 @@ const Tools = () => {
                 />
               </div>
 
-              <Button 
+              <Button
                 onClick={handleCalculate}
                 className="btn-audit-primary w-full text-lg py-3"
               >
@@ -166,35 +177,51 @@ const Tools = () => {
                   </h4>
                   <div className="space-y-3">
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Imposto Mensal:</span>
+                      <span className="text-sm font-medium">
+                        Imposto Mensal:
+                      </span>
                       <span className="text-2xl font-bold text-foreground">
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL'
+                        {new Intl.NumberFormat("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
                         }).format(calculation)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Imposto Anual:</span>
+                      <span className="text-sm font-medium">
+                        Imposto Anual:
+                      </span>
                       <span className="text-lg font-semibold text-foreground">
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL'
+                        {new Intl.NumberFormat("pt-BR", {
+                          style: "currency",
+                          currency: "BRL",
                         }).format(calculation * 12)}
                       </span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-sm font-medium">Alíquota Efetiva:</span>
+                      <span className="text-sm font-medium">
+                        Alíquota Efetiva:
+                      </span>
                       <span className="text-sm font-semibold">
-                        {((calculation * 12) / parseFloat(formData.revenue.replace(/[^\d,]/g, '').replace(',', '.')) * 100).toFixed(2)}%
+                        {(
+                          ((calculation * 12) /
+                            parseFloat(
+                              formData.revenue
+                                .replace(/[^\d,]/g, "")
+                                .replace(",", ".")
+                            )) *
+                          100
+                        ).toFixed(2)}
+                        %
                       </span>
                     </div>
                   </div>
                   <div className="mt-4 pt-4 border-t border-primary/20">
                     <p className="text-xs text-muted-foreground">
-                      *Cálculo baseado no Anexo I (Comércio) do Simples Nacional 2024. 
-                      Para atividades de serviços ou indústria, as alíquotas podem ser diferentes. 
-                      Consulte nossos especialistas para uma análise completa.
+                      *Cálculo baseado no Anexo I (Comércio) do Simples Nacional
+                      2024. Para atividades de serviços ou indústria, as
+                      alíquotas podem ser diferentes. Consulte nossos
+                      especialistas para uma análise completa.
                     </p>
                   </div>
                 </div>
@@ -211,12 +238,14 @@ const Tools = () => {
                       type="email"
                       placeholder="seu@email.com"
                       value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                      onChange={(e) =>
+                        setFormData({ ...formData, email: e.target.value })
+                      }
                       className="text-lg py-3"
                     />
                   </div>
 
-                  <Button 
+                  <Button
                     onClick={handleEmailSubmit}
                     className="btn-audit-outline w-full text-lg py-3"
                   >

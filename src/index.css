@@ -142,7 +142,7 @@
   }
 }
 
-/* Perfect Responsive Design */
+/* Professional Responsive Design - Accounting Industry Standards */
 
 /* Extra Small Devices (320px+) */
 @media (min-width: 320px) {
@@ -155,22 +155,22 @@
   .xs\:max-w-\[150px\] { max-width: 150px; }
 }
 
-/* Mobile First (up to 640px) */
+/* Mobile First (up to 640px) - Professional Spacing */
 @media (max-width: 640px) {
   .section-container { 
-    @apply px-3 sm:px-4; 
+    @apply px-4 sm:px-6; 
     max-width: 100%;
   }
   
   .section-padding { 
-    @apply py-8 sm:py-10; 
+    @apply py-12 sm:py-16; 
   }
   
-  /* Hero Mobile Optimization */
+  /* Hero Mobile Optimization - Professional Spacing */
   #inicio {
     @apply min-h-screen;
-    padding-top: 70px !important;
-    padding-bottom: 30px !important;
+    padding-top: 90px !important;
+    padding-bottom: 40px !important;
   }
   
   #inicio h1 {
@@ -206,20 +206,20 @@
   }
 }
 
-/* Very Small Mobile (up to 480px) */
+/* Very Small Mobile (up to 480px) - Professional Standards */
 @media (max-width: 480px) {
   .section-container { 
-    @apply px-2; 
+    @apply px-3; 
   }
   
   .section-padding { 
-    @apply py-6; 
+    @apply py-10; 
   }
   
-  /* Extra Small Hero */
+  /* Extra Small Hero - Professional Spacing */
   #inicio { 
-    padding-top: 60px !important; 
-    padding-bottom: 20px !important; 
+    padding-top: 80px !important; 
+    padding-bottom: 30px !important; 
   }
   
   #inicio h1 { 
@@ -242,29 +242,34 @@
   }
 }
 
-/* Tablet Optimization (641px to 1024px) */
+/* Tablet Optimization (641px to 1024px) - Professional Standards */
 @media (min-width: 641px) and (max-width: 1024px) {
-  .section-container { 
-    @apply px-6; 
-  }
-  
-  #inicio {
-    padding-top: 80px !important;
-  }
-  
-  .btn-audit-primary { 
-    @apply px-6 py-3 text-sm; 
-  }
-}
-
-/* Large Desktop (1025px+) */
-@media (min-width: 1025px) {
   .section-container { 
     @apply px-8; 
   }
   
   #inicio {
-    padding-top: 90px !important;
+    padding-top: 100px !important;
+  }
+  
+  .btn-audit-primary { 
+    @apply px-6 py-3 text-base; 
+  }
+}
+
+/* Large Desktop (1025px+) - Professional Standards */
+@media (min-width: 1025px) {
+  .section-container { 
+    @apply px-12; 
+  }
+  
+  #inicio {
+    padding-top: 110px !important;
+  }
+  
+  /* Professional Header Spacing */
+  header {
+    min-height: 80px;
   }
 }
 
