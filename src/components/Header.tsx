@@ -57,31 +57,31 @@ const Header = () => {
             <nav className="hidden lg:flex items-center space-x-6 xl:space-x-10">
               <button
                 onClick={() => scrollToSection("inicio")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Início
               </button>
               <button
                 onClick={() => scrollToSection("servicos")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Serviços
               </button>
               <button
                 onClick={() => scrollToSection("ferramentas")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Calculadoras
               </button>
               <button
                 onClick={() => scrollToSection("diferenciais")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Diferenciais
               </button>
               <button
                 onClick={() => scrollToSection("contato")}
-                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Contato
               </button>
