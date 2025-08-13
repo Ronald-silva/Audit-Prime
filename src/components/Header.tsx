@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import logoHorizontal from "@/assets/logo-horizontal.jpg";
 import logoAP from "@/assets/logo-ap.jpg";
@@ -6,6 +7,8 @@ import logoAP from "@/assets/logo-ap.jpg";
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -17,10 +20,26 @@ const Header = () => {
   }, []);
 
   const scrollToSection = (id: string) => {
-    const element = document.getElementById(id);
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
+    // Se não estiver na página inicial, navegar para lá primeiro
+    if (location.pathname !== '/') {
+      navigate('/');
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
     }
+    setIsMobileMenuOpen(false);
+  };
+
+  const navigateToPage = (path: string) => {
+    navigate(path);
     setIsMobileMenuOpen(false);
   };
 
@@ -32,7 +51,7 @@ const Header = () => {
     <>
       {/* Header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed top-0 left-0 right-0 z-[100] transition-all duration-300 ${
           isScrolled
             ? "bg-white/95 backdrop-blur-md shadow-lg"
             : "bg-transparent"
@@ -75,13 +94,19 @@ const Header = () => {
               </button>
               <button
                 onClick={() => scrollToSection("diferenciais")}
-                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Diferenciais
               </button>
               <button
+                onClick={() => navigateToPage("/blog")}
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
+              >
+                Blog
+              </button>
+              <button
                 onClick={() => scrollToSection("contato")}
-                className="text-foreground font-medium hover:text-black transition-colors text-base xl:text-lg py-2 px-1"
+                className="text-foreground font-medium hover:text-primary transition-colors text-base xl:text-lg py-2 px-1"
               >
                 Contato
               </button>
@@ -115,7 +140,7 @@ const Header = () => {
 
       {/* Mobile Menu - Professional Spacing */}
       {isMobileMenuOpen && (
-        <div className="lg:hidden fixed inset-0 z-40 bg-white pt-20 sm:pt-24">
+        <div className="lg:hidden fixed inset-0 z-[90] bg-white pt-20 sm:pt-24">
           <div className="px-4 sm:px-6 py-6 sm:py-8 space-y-3 sm:space-y-4">
             <button
               onClick={() => scrollToSection("inicio")}
@@ -140,6 +165,12 @@ const Header = () => {
               className="block w-full text-left py-3 px-4 text-base sm:text-lg font-medium text-foreground hover:bg-gray-50 rounded-lg transition-colors min-h-[48px]"
             >
               Diferenciais
+            </button>
+            <button
+              onClick={() => navigateToPage("/blog")}
+              className="block w-full text-left py-3 px-4 text-base sm:text-lg font-medium text-foreground hover:bg-gray-50 rounded-lg transition-colors min-h-[48px]"
+            >
+              Blog
             </button>
             <button
               onClick={() => scrollToSection("contato")}
