@@ -21,8 +21,8 @@ const Header = () => {
 
   const scrollToSection = (id: string) => {
     // Se não estiver na página inicial, navegar para lá primeiro
-    if (location.pathname !== '/') {
-      navigate('/');
+    if (location.pathname !== "/") {
+      navigate("/");
       setTimeout(() => {
         const element = document.getElementById(id);
         if (element) {
@@ -178,7 +178,7 @@ const Header = () => {
             >
               Contato
             </button>
-            
+
             {/* Mobile CTA */}
             <div className="pt-4 sm:pt-6">
               <button
