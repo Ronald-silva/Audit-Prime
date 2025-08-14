@@ -10,7 +10,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, Download, Mail, Info } from "lucide-react";
+import { Calculator, Download, Mail, Info, Lightbulb } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 // Tabelas OFICIAIS do Simples Nacional 2024/2025 - Receita Federal do Brasil
@@ -105,6 +105,7 @@ const Tools = () => {
     impostoAnual: number;
     aliquotaEfetiva: number;
     anexoInfo: any;
+    meiSuggestion?: string;
   } | null>(null);
   const { toast } = useToast();
 
@@ -142,31 +143,18 @@ const Tools = () => {
       return;
     }
 
-    // Validação para MEI (Microempreendedor Individual) - contextual por anexo
+    // Verificar elegibilidade para MEI (será exibido inline no resultado)
+    let meiSuggestion = "";
     if (revenue <= 81000) {
-      let meiMessage = "";
-      
       switch (formData.anexo) {
         case 'anexo-i':
-          meiMessage = "Para comércio com este faturamento, o MEI pode ser uma opção mais vantajosa se sua atividade estiver na lista permitida.";
-          break;
-        case 'anexo-ii':
-          // Indústria geralmente não é elegível para MEI
-          meiMessage = "";
+          meiSuggestion = "Para comércio com este faturamento, o MEI pode ser uma opção mais vantajosa se sua atividade estiver na lista permitida.";
           break;
         case 'anexo-iii':
         case 'anexo-iv':
         case 'anexo-v':
-          meiMessage = "Para serviços com este faturamento, o MEI (Microempreendedor Individual) pode oferecer tributação mais vantajosa.";
+          meiSuggestion = "Para serviços com este faturamento, o MEI (Microempreendedor Individual) pode oferecer tributação mais vantajosa.";
           break;
-      }
-      
-      if (meiMessage) {
-        toast({
-          title: "Dica - MEI",
-          description: meiMessage + " Consulte nossos especialistas para verificar a elegibilidade.",
-          variant: "default",
-        });
       }
     }
 
@@ -208,7 +196,8 @@ const Tools = () => {
       impostoMensal,
       impostoAnual,
       aliquotaEfetiva,
-      anexoInfo
+      anexoInfo,
+      meiSuggestion
     });
   };
 
@@ -359,7 +348,7 @@ const Tools = () => {
                         </div>
                       </div>
 
-                      <div className="grid grid-cols-2 gap-4">
+                      <div className="grid grid-cols-2 gap-4 mb-4">
                         <div className="bg-white rounded-lg p-3">
                           <div className="text-xs text-gray-600 mb-1">Anual</div>
                           <div className="text-lg font-semibold text-gray-900">
@@ -376,6 +365,30 @@ const Tools = () => {
                           </div>
                         </div>
                       </div>
+
+                      {/* Sugestão MEI - Inline e Mobile-Friendly */}
+                      {calculation.meiSuggestion && (
+                        <div className="bg-gradient-to-r from-amber-50 to-yellow-50 border border-amber-200 rounded-lg p-4 text-left">
+                          <div className="flex items-start gap-3">
+                            <div className="flex-shrink-0 mt-0.5">
+                              <Lightbulb className="h-5 w-5 text-amber-600" />
+                            </div>
+                            <div className="flex-1 min-w-0">
+                              <h5 className="text-sm font-semibold text-amber-800 mb-2">
+                                💡 Dica: MEI pode ser mais vantajoso
+                              </h5>
+                              <p className="text-sm text-amber-700 leading-relaxed mb-3">
+                                {calculation.meiSuggestion}
+                              </p>
+                              <div className="bg-white/60 rounded-md p-3 border border-amber-200">
+                                <p className="text-xs text-amber-600 font-medium">
+                                  📞 Consulte nossos especialistas para verificar a elegibilidade e fazer a melhor escolha para seu negócio.
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
