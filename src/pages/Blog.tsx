@@ -1,8 +1,62 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useMemo } from "react";
 import { ArrowRight, ArrowLeft, Search, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/Layout";
+
+// Função para calcular tempo de leitura baseado em melhores práticas
+const calculateReadingTime = (content: string): string => {
+  // Remove tags HTML para contar apenas o texto
+  const textContent = content.replace(/<[^>]*>/g, "");
+
+  // Conta palavras (separadas por espaços, quebras de linha, etc.)
+  const words = textContent
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0);
+  const wordCount = words.length;
+
+  // Velocidade média de leitura em português: 200-250 palavras por minuto
+  // Usamos 220 como média otimizada para conteúdo técnico/profissional
+  const wordsPerMinute = 220;
+
+  // Calcula tempo em minutos
+  const minutes = Math.ceil(wordCount / wordsPerMinute);
+
+  // Retorna formatação adequada
+  if (minutes === 1) {
+    return "1 min";
+  } else if (minutes < 60) {
+    return `${minutes} min`;
+  } else {
+    const hours = Math.floor(minutes / 60);
+    const remainingMinutes = minutes % 60;
+    if (remainingMinutes === 0) {
+      return `${hours}h`;
+    } else {
+      return `${hours}h ${remainingMinutes}min`;
+    }
+  }
+};
+
+// Função para obter estatísticas detalhadas do artigo
+const getArticleStats = (content: string) => {
+  const textContent = content.replace(/<[^>]*>/g, "");
+  const words = textContent
+    .trim()
+    .split(/\s+/)
+    .filter((word) => word.length > 0);
+  const wordCount = words.length;
+  const charCount = textContent.length;
+  const readingTime = calculateReadingTime(content);
+
+  return {
+    wordCount,
+    charCount,
+    readingTime,
+    estimatedReadingSpeed: 220, // palavras por minuto
+  };
+};
 
 const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -17,8 +71,7 @@ const Blog = () => {
         "Simples Nacional 2025: O Guia Definitivo para Empresas em Fortaleza",
       excerpt:
         "Descomplique o Simples Nacional! Entenda o que é, quem pode optar, as tabelas e anexos atualizados para 2025 e como sua empresa em Fortaleza pode se beneficiar.",
-      date: "2025-01-15",
-      readTime: "12 min",
+      date: "2025-08-14",
       category: "Tributário",
       featured: true,
       content: `
@@ -76,8 +129,7 @@ const Blog = () => {
         "BPO Financeiro: A Arma Secreta para Empresas em Fortaleza Crescerem com Foco e Lucratividade",
       excerpt:
         "O que é BPO Financeiro e como ele pode transformar a gestão da sua empresa? Descubra como terceirizar suas finanças economiza tempo, dinheiro e impulsiona o crescimento.",
-      date: "2025-01-22",
-      readTime: "8 min",
+      date: "2025-08-14",
       category: "Gestão",
       featured: false,
       content: `
@@ -126,8 +178,7 @@ const Blog = () => {
         "Planejamento Tributário em Fortaleza: 5 Estratégias Legais para Pagar Menos Impostos em 2025",
       excerpt:
         "Pagar menos impostos legalmente é possível! Conheça 5 estratégias de planejamento tributário que empresas em Fortaleza podem aplicar para aumentar sua lucratividade.",
-      date: "2025-01-29",
-      readTime: "10 min",
+      date: "2025-08-14",
       category: "Tributário",
       featured: false,
       content: `
@@ -177,8 +228,22 @@ const Blog = () => {
     },
   ];
 
+  // Calcular tempo de leitura e estatísticas automaticamente para cada post
+  const postsWithReadingTime = useMemo(() => {
+    return blogPosts.map((post) => {
+      const stats = getArticleStats(post.content);
+      return {
+        ...post,
+        readTime: stats.readingTime,
+        wordCount: stats.wordCount,
+        charCount: stats.charCount,
+        stats,
+      };
+    });
+  }, [blogPosts]);
+
   // Filtrar posts com busca aprimorada
-  const filteredPosts = blogPosts.filter((post) => {
+  const filteredPosts = postsWithReadingTime.filter((post) => {
     if (!searchTerm.trim()) return true;
 
     const searchLower = searchTerm.toLowerCase();
@@ -216,7 +281,7 @@ const Blog = () => {
 
   // Se um artigo está selecionado, mostrar apenas ele
   if (selectedPost) {
-    const post = blogPosts.find((p) => p.id === selectedPost);
+    const post = postsWithReadingTime.find((p) => p.id === selectedPost);
     if (!post) return null;
 
     return (
@@ -249,7 +314,10 @@ const Blog = () => {
               <header className="mb-8 sm:mb-12">
                 {/* Metadados - Mobile: Layout Horizontal Compacto */}
                 <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mb-6 sm:mb-8">
-                  <div className="bg-primary/10 rounded-lg px-3 py-2 sm:px-4">
+                  <div
+                    className="bg-primary/10 rounded-lg px-3 py-2 sm:px-4 cursor-help"
+                    title="Data de publicação do artigo"
+                  >
                     <div className="flex items-center gap-2 sm:flex-col sm:gap-0 sm:text-center">
                       <div className="text-xs font-semibold text-primary uppercase tracking-wide sm:mb-1">
                         {new Date(post.date)
@@ -263,8 +331,11 @@ const Blog = () => {
                     </div>
                   </div>
 
-                  <div className="text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg">
-                    {post.readTime}
+                  <div
+                    className="text-sm text-gray-500 bg-gray-50 px-3 py-2 rounded-lg cursor-help"
+                    title={`Tempo estimado baseado em ${post.wordCount} palavras (220 palavras/min)`}
+                  >
+                    📖 {post.readTime}
                   </div>
 
                   {post.category && (
@@ -288,6 +359,43 @@ const Blog = () => {
                 className="prose prose-lg max-w-none prose-headings:text-primary prose-headings:font-bold prose-p:text-gray-700 prose-p:leading-relaxed prose-ul:text-gray-700 prose-li:mb-2 prose-strong:text-primary"
                 dangerouslySetInnerHTML={{ __html: post.content }}
               />
+
+              {/* Estatísticas do Artigo */}
+              <div className="mt-12 p-6 bg-gray-50 rounded-lg border border-gray-100">
+                <h3 className="text-lg font-semibold text-gray-800 mb-4">
+                  📊 Estatísticas do Artigo
+                </h3>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-2xl font-bold text-primary">
+                      {post.wordCount}
+                    </div>
+                    <div className="text-xs text-gray-500">Palavras</div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-2xl font-bold text-primary">
+                      {post.readTime}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      Tempo de Leitura
+                    </div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-2xl font-bold text-primary">220</div>
+                    <div className="text-xs text-gray-500">Palavras/min</div>
+                  </div>
+                  <div className="bg-white p-3 rounded-lg">
+                    <div className="text-2xl font-bold text-primary">
+                      {Math.round(post.charCount / 1000)}k
+                    </div>
+                    <div className="text-xs text-gray-500">Caracteres</div>
+                  </div>
+                </div>
+                <p className="text-xs text-gray-500 mt-4 text-center">
+                  * Tempo de leitura calculado automaticamente baseado na
+                  velocidade média de leitura em português
+                </p>
+              </div>
 
               {/* Call to Action */}
               <div className="mt-16 p-8 bg-primary/5 rounded-lg text-center">
@@ -366,7 +474,10 @@ const Blog = () => {
               <Card className="border-0 shadow-none">
                 <CardHeader className="text-center pb-8">
                   <div className="flex items-center justify-center gap-4 mb-6">
-                    <div className="bg-primary/10 rounded-lg px-4 py-2">
+                    <div
+                      className="bg-primary/10 rounded-lg px-4 py-2 cursor-help"
+                      title="Data de publicação do artigo"
+                    >
                       <div className="text-xs font-semibold text-primary uppercase tracking-wide mb-1">
                         {new Date(featuredPost.date)
                           .toLocaleDateString("pt-BR", { month: "short" })
@@ -377,8 +488,11 @@ const Blog = () => {
                         {new Date(featuredPost.date).getDate()}
                       </div>
                     </div>
-                    <div className="text-sm text-gray-500">
-                      {featuredPost.readTime}
+                    <div
+                      className="text-sm text-gray-500 cursor-help"
+                      title={`${featuredPost.wordCount} palavras • Tempo calculado automaticamente`}
+                    >
+                      📖 {featuredPost.readTime}
                     </div>
                     {featuredPost.category && (
                       <div className="text-xs bg-primary text-white px-3 py-1 rounded-full font-medium">
@@ -456,7 +570,10 @@ const Blog = () => {
                       <div className="flex items-center justify-between mb-4 lg:mb-0 lg:flex-col lg:flex-shrink-0 lg:w-32">
                         <div className="flex items-center gap-3 lg:flex-col lg:gap-0 lg:bg-primary/10 lg:rounded-lg lg:p-4 lg:text-center lg:border lg:border-primary/20 lg:w-full">
                           {/* Data */}
-                          <div className="flex items-center gap-2 lg:flex-col lg:gap-0">
+                          <div
+                            className="flex items-center gap-2 lg:flex-col lg:gap-0 cursor-help"
+                            title="Data de publicação do artigo"
+                          >
                             <div className="text-xs font-semibold text-primary uppercase tracking-wide lg:mb-2">
                               {new Date(featuredPost.date)
                                 .toLocaleDateString("pt-BR", { month: "short" })
@@ -471,8 +588,11 @@ const Blog = () => {
                           </div>
 
                           {/* Tempo de Leitura */}
-                          <div className="text-xs text-primary font-medium lg:mb-2">
-                            {featuredPost.readTime}
+                          <div
+                            className="text-xs text-primary font-medium lg:mb-2 cursor-help"
+                            title={`${featuredPost.wordCount} palavras • Tempo calculado automaticamente`}
+                          >
+                            📖 {featuredPost.readTime}
                           </div>
                         </div>
 
@@ -530,7 +650,10 @@ const Blog = () => {
                       <div className="flex items-center justify-between mb-4 lg:mb-0 lg:flex-col lg:flex-shrink-0 lg:w-32">
                         <div className="flex items-center gap-3 lg:flex-col lg:gap-0 lg:bg-gray-50 lg:rounded-lg lg:p-4 lg:text-center lg:border lg:border-gray-100 lg:group-hover:border-primary/20 lg:transition-colors lg:w-full">
                           {/* Data */}
-                          <div className="flex items-center gap-2 lg:flex-col lg:gap-0">
+                          <div
+                            className="flex items-center gap-2 lg:flex-col lg:gap-0 cursor-help"
+                            title="Data de publicação do artigo"
+                          >
                             <div className="text-xs font-semibold text-gray-400 uppercase tracking-wide lg:mb-2">
                               {new Date(post.date)
                                 .toLocaleDateString("pt-BR", { month: "short" })
@@ -545,8 +668,11 @@ const Blog = () => {
                           </div>
 
                           {/* Tempo de Leitura */}
-                          <div className="text-xs text-gray-400 font-medium lg:mb-2">
-                            {post.readTime}
+                          <div
+                            className="text-xs text-gray-400 font-medium lg:mb-2 cursor-help"
+                            title={`${post.wordCount} palavras • Tempo calculado automaticamente`}
+                          >
+                            📖 {post.readTime}
                           </div>
                         </div>
 
