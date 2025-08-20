@@ -17,4 +17,16 @@ export default defineConfig(() => ({
     },
   },
   clearScreen: false,
+  // Configuração para lidar com rotas do cliente em produção
+  preview: {
+    port: 4173,
+    strictPort: true,
+  },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks: undefined,
+      },
+    }
+  }
 }));
