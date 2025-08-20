@@ -118,19 +118,19 @@ const Footer = () => {
               <div className="flex items-center space-x-3">
                 <Phone className="h-5 w-5 opacity-80" />
                 <a 
-                  href="tel:+558534567890" 
+                  href="tel:+5585987076054" 
                   className="text-base opacity-80 hover:opacity-100 transition-opacity"
                 >
-                  (85) 3456-7890
+                  (85) 98707-6054
                 </a>
               </div>
               <div className="flex items-center space-x-3">
                 <Mail className="h-5 w-5 opacity-80" />
                 <a 
-                  href="mailto:contato@auditprime.com.br" 
+                  href="mailto:auditprime.ce@gmail.com" 
                   className="text-base opacity-80 hover:opacity-100 transition-opacity"
                 >
-                  contato@auditprime.com.br
+                  auditprime.ce@gmail.com
                 </a>
               </div>
               <div className="flex items-start space-x-3">

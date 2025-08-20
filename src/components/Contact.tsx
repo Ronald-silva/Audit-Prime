@@ -1,37 +1,36 @@
-import React, { useState } from 'react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Textarea } from '@/components/ui/textarea';
-import { 
-  Phone, 
-  Mail, 
-  Clock, 
-  MapPin,
-  Send
-} from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
+import { Phone, Mail, Clock, MapPin, Send } from "lucide-react";
+import { useToast } from "@/hooks/use-toast";
 
 const Contact = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    phone: '',
-    message: ''
+    name: "",
+    email: "",
+    phone: "",
+    message: "",
   });
-  
+
   const { toast } = useToast();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!formData.name || !formData.email || !formData.message) {
       toast({
         title: "Erro",
         description: "Por favor, preencha todos os campos obrigatórios.",
-        variant: "destructive"
+        variant: "destructive",
       });
       return;
     }
@@ -39,50 +38,53 @@ const Contact = () => {
     // Simular envio do formulário
     toast({
       title: "Mensagem enviada!",
-      description: "Recebemos sua mensagem. Nossa equipe entrará em contato em até 24 horas."
+      description:
+        "Recebemos sua mensagem. Nossa equipe entrará em contato em até 24 horas.",
     });
 
     // Reset form
     setFormData({
-      name: '',
-      email: '',
-      phone: '',
-      message: ''
+      name: "",
+      email: "",
+      phone: "",
+      message: "",
     });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const contactInfo = [
     {
       icon: Phone,
-      title: 'Telefone',
-      info: '(85) 3456-7890',
-      link: 'tel:+558534567890'
+      title: "Telefone",
+      info: "(85) 98707-6054",
+      link: "tel:+5585987076054",
     },
     {
       icon: Mail,
-      title: 'E-mail',
-      info: 'contato@auditprime.com.br',
-      link: 'mailto:contato@auditprime.com.br'
+      title: "E-mail",
+      info: "auditprime.ce@gmail.com",
+      link: "mailto:auditprime.ce@gmail.com",
     },
     {
       icon: Clock,
-      title: 'Horário de Atendimento',
-      info: 'Segunda a Sexta: 8h às 18h',
-      link: null
+      title: "Horário de Atendimento",
+      info: "Segunda a Sexta: 8h às 18h",
+      link: null,
     },
     {
       icon: MapPin,
-      title: 'Localização',
-      info: 'Fortaleza - CE',
-      link: null
-    }
+      title: "Localização",
+      info: "Fortaleza - CE",
+      link: null,
+    },
   ];
 
   return (
@@ -172,7 +174,7 @@ const Contact = () => {
                   />
                 </div>
 
-                <Button 
+                <Button
                   type="submit"
                   className="btn-audit-primary w-full text-lg py-3"
                 >
@@ -200,7 +202,7 @@ const Contact = () => {
                         {info.title}
                       </h4>
                       {info.link ? (
-                        <a 
+                        <a
                           href={info.link}
                           className="text-muted-foreground hover:text-primary transition-colors"
                         >
@@ -222,12 +224,13 @@ const Contact = () => {
                   Pronto para começar?
                 </h4>
                 <p className="text-lg opacity-90 mb-6">
-                  Transforme a gestão do seu negócio com nossa consultoria especializada
+                  Transforme a gestão do seu negócio com nossa consultoria
+                  especializada
                 </p>
-                <Button 
+                <Button
                   variant="outline"
                   className="bg-white text-blue-900 border-white font-semibold px-8 py-3"
-                  onClick={() => document.getElementById('name')?.focus()}
+                  onClick={() => document.getElementById("name")?.focus()}
                 >
                   Solicitar Consultoria
                 </Button>
