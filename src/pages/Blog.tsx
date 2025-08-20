@@ -3,6 +3,7 @@ import { ArrowRight, ArrowLeft, Search, X } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import Layout from "@/components/Layout";
+import { useNavigate, useLocation } from "react-router-dom";
 
 // Função para calcular tempo de leitura baseado em melhores práticas
 const calculateReadingTime = (content: string): string => {
@@ -62,18 +63,125 @@ const Blog = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedPost, setSelectedPost] = useState<number | null>(null);
   const [isSearching, setIsSearching] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const scrollToSection = (id: string) => {
+    // Se não estiver na página inicial, navegar para lá primeiro
+    if (location.pathname !== "/") {
+      navigate("/");
+      setTimeout(() => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100);
+    } else {
+      const element = document.getElementById(id);
+      if (element) {
+        element.scrollIntoView({ behavior: "smooth" });
+      }
+    }
+  };
 
   // Artigos essenciais e focados
   const blogPosts = [
     {
       id: 1,
       title:
+        "Transação Tributária 2025: Sua Grande Oportunidade para Regularizar Débitos Fiscais com Vantagens!",
+      excerpt:
+        "A Transação Tributária 2025 surge como uma oportunidade estratégica para quitar pendências fiscais com segurança jurídica e previsibilidade financeira. Descubra os novos prazos e benefícios!",
+      date: "2025-08-20T12:00:00-03:00",
+      category: "Tributário",
+      featured: true,
+      content: `
+        <h2>Introdução: Uma Oportunidade Estratégica e Imperdível</h2>
+        <p>A regularização de débitos tributários é um desafio constante para muitas empresas no Brasil. No entanto, a Transação Tributária 2025 surge como uma oportunidade estratégica e imperdível para quem busca quitar pendências fiscais com segurança jurídica e previsibilidade financeira.</p>
+        
+        <p>Recentemente, a Procuradoria-Geral da Fazenda Nacional (PGFN) trouxe notícias importantes que ampliam ainda mais essa janela de regularização, oferecendo condições excepcionais para empresas que desejam colocar suas obrigações fiscais em dia.</p>
+        
+        <h2>Prorrogação de Prazos e Novos Editais: Uma Janela Estendida para a Regularização!</h2>
+        <p>A PGFN anunciou a prorrogação dos prazos para adesão aos editais da Transação Tributária 2025. O que antes eram os Editais PGDAU nº 6 e nº 7, agora foram renomeados para Edital nº 1 e Edital nº 2, respectivamente.</p>
+        
+        <h3>Principais mudanças nos prazos:</h3>
+        <ul>
+          <li><strong>Nova data limite:</strong> A adesão às condições especiais de negociação foi prorrogada para 30 de maio de 2025</li>
+          <li><strong>Janela estendida:</strong> Essa prorrogação reforça a possibilidade de que não haverá o lançamento de novos editais em 2025</li>
+          <li><strong>Oportunidade única:</strong> Torna essencial aproveitar esta janela de regularização fiscal estendida</li>
+        </ul>
+        
+        <h2>Principais Benefícios da Transação Tributária 2025: Por Que Aderir?</h2>
+        <p>A Transação Tributária 2025 oferece um conjunto de vantagens que a tornam uma ferramenta poderosa para a regularização de dívidas tributárias federais:</p>
+        
+        <h3>Vantagens principais:</h3>
+        <ul>
+          <li><strong>Descontos significativos:</strong> Possibilidade de descontos de até 100% em multas, juros e encargos legais</li>
+          <li><strong>Parcelamento Flexível:</strong> Parcelamento em até 145 meses, ajustado conforme o perfil do contribuinte</li>
+          <li><strong>Abrangência ampla:</strong> Inclusão de débitos em discussão judicial ou administrativa, mesmo aqueles que já foram parcelados anteriormente</li>
+          <li><strong>Segurança jurídica:</strong> Acordo formal com a Receita Federal, eliminando incertezas futuras</li>
+        </ul>
+        
+        <h2>Novidades e Foco dos Editais Prorrogados</h2>
+        <p>Os editais foram renovados e reestruturados com o objetivo de ampliar o acesso e atender a diferentes perfis de contribuintes:</p>
+        
+        <h3>Edital PGDAU nº 1 (antigo nº 6):</h3>
+        <ul>
+          <li>Mantém condições vantajosas para débitos de até R$ 45 milhões</li>
+          <li>Foco em descontos progressivos e parcelamento adaptável</li>
+          <li>Inclui também o PGDAU nº11/2025 que permite regularização de dívidas fiscais de até R$ 45 milhões</li>
+        </ul>
+        
+        <h3>Edital PGDAU nº 2 (antigo nº 7):</h3>
+        <ul>
+          <li>Oferece soluções para casos mais complexos</li>
+          <li>Ideal para dívidas irrecuperáveis ou de pequeno valor</li>
+          <li>Especialmente adequado para microempresas e pessoas físicas</li>
+        </ul>
+        
+        <h2>Modalidades de Transação Tributária em 2025: Conheça as Opções!</h2>
+        <p>O programa oferece diversas modalidades, adaptadas à realidade financeira e ao tipo de débito do contribuinte:</p>
+        
+        <h3>1. Conforme a Capacidade de Pagamento (CAPAG)</h3>
+        <p>As condições são ajustadas à sua realidade financeira, com descontos proporcionais à recuperabilidade do débito.</p>
+        
+        <h3>2. Para Débitos de Difícil Recuperação</h3>
+        <p>Direcionada a situações específicas como falência ou recuperação judicial, com condições excepcionais para a quitação.</p>
+        
+        <h3>3. Para Pequenos Valores</h3>
+        <p>Modalidade simplificada para microempresas e pessoas físicas, com parcelamentos mais acessíveis.</p>
+        
+        <h3>4. Com Garantias</h3>
+        <p>Permite o parcelamento em 12 vezes para débitos que possuem seguro ou carta fiança.</p>
+        
+        <h2>Como a Audit Prime Pode Ajudar na Sua Adesão</h2>
+        <p>A complexidade das negociações e a análise detalhada dos débitos exigem um suporte especializado para garantir que você aproveite ao máximo as vantagens da Transação Tributária 2025.</p>
+        
+        <h3>Nossos serviços incluem:</h3>
+        <ul>
+          <li><strong>Análise completa de débitos:</strong> Identificamos todos os débitos elegíveis e calculamos o melhor cenário</li>
+          <li><strong>Estratégias de negociação:</strong> Desenvolvemos a estratégia mais vantajosa para seu perfil</li>
+          <li><strong>Formalização da adesão:</strong> Cuidamos de toda a documentação e processos burocráticos</li>
+          <li><strong>Acompanhamento integral:</strong> Monitoramos todo o processo até a conclusão</li>
+        </ul>
+        
+        <h2>Não Perca o Prazo!</h2>
+        <p>Esta é uma oportunidade crucial para sanar pendências fiscais, garantir a saúde financeira da sua empresa e ter mais previsibilidade no futuro. Com a prorrogação até 30 de maio de 2025, você ainda tem tempo para se organizar e aderir às condições especiais.</p>
+        
+        <p><strong>A regularização fiscal não é apenas uma obrigação, é um investimento na tranquilidade e no crescimento sustentável do seu negócio.</strong></p>
+        
+        <p>Entre em contato com a AUDIT PRIME hoje mesmo e descubra como a Transação Tributária 2025 pode transformar a situação fiscal da sua empresa. Nossa equipe especializada está pronta para analisar seu caso e desenvolver a melhor estratégia para sua regularização.</p>
+      `,
+    },
+    {
+      id: 2,
+      title:
         "Simples Nacional 2025: O Guia Definitivo para Empresas em Fortaleza",
       excerpt:
         "Descomplique o Simples Nacional! Entenda o que é, quem pode optar, as tabelas e anexos atualizados para 2025 e como sua empresa em Fortaleza pode se beneficiar.",
       date: "2025-08-14",
       category: "Tributário",
-      featured: true,
+      featured: false,
       content: `
         <h2>O que é o Simples Nacional?</h2>
         <p>O Simples Nacional é um regime tributário facilitado e simplificado, criado em 2006 pela Lei Complementar nº 123. Seu principal objetivo é reduzir a burocracia e os custos para pequenos empresários, unificando o recolhimento de oito impostos diferentes em uma única guia de pagamento: o Documento de Arrecadação do Simples Nacional (DAS).</p>
@@ -124,7 +232,7 @@ const Blog = () => {
       `,
     },
     {
-      id: 2,
+      id: 3,
       title:
         "BPO Financeiro: A Arma Secreta para Empresas em Fortaleza Crescerem com Foco e Lucratividade",
       excerpt:
@@ -173,7 +281,7 @@ const Blog = () => {
       `,
     },
     {
-      id: 3,
+      id: 4,
       title:
         "Planejamento Tributário em Fortaleza: 5 Estratégias Legais para Pagar Menos Impostos em 2025",
       excerpt:
@@ -406,7 +514,10 @@ const Blog = () => {
                   Entre em contato com a AUDIT PRIME e descubra como podemos
                   ajudar sua empresa a crescer.
                 </p>
-                <button className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                <button 
+                  onClick={() => scrollToSection("contato")}
+                  className="bg-primary text-white px-8 py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors"
+                >
                   Falar com Especialista
                 </button>
               </div>
